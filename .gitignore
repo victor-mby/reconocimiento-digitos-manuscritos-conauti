@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Entornos y secretos
+.env
+.env.*
+!.env.example
+
+# Datos y modelos generados (revisar antes de versionar)
+datos/*
+!datos/README.md
+resultados/*
+!resultados/README.md
+*.pt
+*.pth
+*.onnx
+*.joblib
+*.pkl
+
+# Editores y sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
