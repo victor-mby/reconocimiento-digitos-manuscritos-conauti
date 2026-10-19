@@ -1,0 +1,2 @@
+# Dependencias se fijarán cuando se implemente el entrenamiento.
+# Evitar instalar paquetes innecesarios en el avance teórico.
