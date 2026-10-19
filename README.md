@@ -1,41 +1,67 @@
 # Reconocimiento de Dígitos Manuscritos - CONAUTI S.A.C.
 
-Proyecto académico de Machine Learning y Deep Learning basado en el caso práctico de SENATI sobre la clasificación de dígitos manuscritos.
+Proyecto académico de Machine Learning y Deep Learning para clasificar dígitos manuscritos del 0 al 9 y comparar CNN, KNN y SVM.
 
-## Objetivo
+## Estado
+La documentación inicial era teórica. Se incorpora ahora un primer prototipo ejecutable en `main.py`. Debe ejecutarse localmente para generar métricas; este repositorio no afirma resultados antes de correr el experimento.
 
-Desarrollar y comparar modelos capaces de clasificar dígitos manuscritos del 0 al 9, evaluando sus resultados con métricas de clasificación.
+## Requisitos
+- Python 3.10–3.12 recomendado para compatibilidad de TensorFlow.
+- Conexión a internet en la primera ejecución para descargar MNIST.
+- RAM recomendada: 8 GB o más; el entrenamiento puede tardar según el equipo.
 
-## Contexto
+## Instalación (Windows)
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+python main.py
+```
+Si Python 3.11 no está instalado, instala una versión compatible con TensorFlow antes de continuar. No se recomienda usar una versión de Python no soportada por TensorFlow.
 
-El proyecto se contextualiza en CONAUTI S.A.C., empresa indicada para las prácticas del estudiante y dedicada al desarrollo de soluciones con agentes de inteligencia artificial. La solución propuesta estudia el reconocimiento automático de números escritos a mano como posible componente de un sistema de procesamiento inteligente de documentos.
+## Qué hace el programa
+1. Descarga MNIST con Keras: imágenes en escala de grises de 28×28 píxeles y etiquetas 0–9.
+2. Convierte los píxeles a valores entre 0 y 1.
+3. Entrena una CNN con el conjunto de entrenamiento y evalúa con el conjunto de prueba completo.
+4. Entrena KNN y SVM con un subconjunto reproducible para controlar el coste computacional.
+5. Guarda métricas, reportes por clase, matrices de confusión y modelos.
 
-## Modelos propuestos
+## Archivos generados
+- `resultados/comparacion_modelos.csv`
+- `resultados/metricas_*.csv`
+- `resultados/reporte_*.txt`
+- `resultados/matriz_confusion_*.png`
+- `modelos/cnn_mnist.keras`
+- `modelos/knn_mnist.joblib`
+- `modelos/svm_mnist.joblib`
 
-- **CNN (red neuronal convolucional):** modelo principal para aprender características visuales de las imágenes.
-- **KNN (K-Nearest Neighbors):** línea base basada en la similitud entre ejemplos.
-- **SVM (Support Vector Machine):** modelo comparativo de clasificación.
+Los resultados solo existirán después de ejecutar el programa. La comparación debe interpretarse teniendo en cuenta que CNN se evalúa con todo el test de MNIST y KNN/SVM con un subconjunto de test.
 
-La selección definitiva y la comparación se documentarán según los requisitos del curso y los resultados obtenidos experimentalmente.
+## Modelos
+- CNN: red neuronal convolucional para aprender características visuales.
+- KNN: clasifica según vecinos más cercanos.
+- SVM: clasificador con kernel RBF y escalado de características.
 
-## Estado actual
-
-**Etapa 1 — Avance teórico.** Se está documentando el problema, el objetivo, los modelos candidatos y la metodología de evaluación. Todavía no se presentan métricas experimentales ni resultados de entrenamiento.
-
-## Estructura prevista
-
-```text
-docs/       Documentación del proyecto
-datos/      Instrucciones y referencias sobre los datos
-notebooks/  Exploración y experimentos
-src/        Código fuente
-resultados/ Métricas, tablas y visualizaciones
+## Estructura
+```
+main.py
+requirements.txt
+docs/
+datos/
+resultados/
+modelos/       # se crea al ejecutar
 ```
 
-## Evaluación prevista
+## Limitaciones
+- El prototipo usa MNIST estándar, no datos privados de CONAUTI.
+- No es una integración de producción ni un sistema OCR para formularios completos.
+- Los hiperparámetros son una configuración inicial y pueden requerir ajuste.
+- La CNN entrena tres épocas por defecto; esto no garantiza rendimiento óptimo.
+- KNN/SVM usan subconjuntos por coste computacional; para una comparación rigurosa se recomienda evaluar todos los modelos sobre el mismo test, tras ajustar tiempos y recursos.
+- El caso de SENATI menciona también regresión y K-Means en la sección de evidencias; confirma con el docente si esos algoritmos son obligatorios.
 
-Se considerarán accuracy, precision, recall, F1-score y matriz de confusión. Los valores se añadirán únicamente después de ejecutar y evaluar los modelos.
-
-## Alcance
-
-El alcance inicial es académico y experimental. No se afirma que exista una integración en producción ni que CONAUTI S.A.C. utilice actualmente esta solución.
+## Documentación
+- [Avance teórico](docs/avance_teorico.md)
+- [Preguntas guía](docs/preguntas_guia.md)
+- [Diagrama de solución](docs/diagrama_solucion.md)
