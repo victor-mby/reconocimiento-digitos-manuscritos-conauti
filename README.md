@@ -1,67 +1,45 @@
-# Reconocimiento de Dígitos Manuscritos - CONAUTI S.A.C.
+# CONAUTI S.A.C. — Análisis de interacciones de agentes de IA
 
-Proyecto académico de Machine Learning y Deep Learning para clasificar dígitos manuscritos del 0 al 9 y comparar CNN, KNN y SVM.
+Repositorio académico con el **Avance 2** orientado a analizar métricas operativas de agentes de inteligencia artificial mediante aprendizaje no supervisado.
 
-## Estado
-La documentación inicial era teórica. Se incorpora ahora un primer prototipo ejecutable en `main.py`. Debe ejecutarse localmente para generar métricas; este repositorio no afirma resultados antes de correr el experimento.
+## Proyecto principal del Avance 2
 
-## Requisitos
-- Python 3.10–3.12 recomendado para compatibilidad de TensorFlow.
-- Conexión a internet en la primera ejecución para descargar MNIST.
-- RAM recomendada: 8 GB o más; el entrenamiento puede tardar según el equipo.
+El código nuevo se encuentra en [`agentes_ia/`](agentes_ia/README.md) e implementa:
 
-## Instalación (Windows)
+- **K-Means:** agrupamiento de interacciones similares.
+- **Isolation Forest:** detección de registros atípicos para revisión.
+- **Portal Flask:** ejecución de los modelos, visualización de grupos y descarga de resultados.
+- **Datos sintéticos reproducibles:** permiten probar el flujo sin afirmar que son datos reales de CONAUTI.
+
+> Los datos de demostración no provienen de la empresa. Un registro atípico no es una falla confirmada. Para datos reales se necesita autorización y revisión de privacidad.
+
+### Inicio rápido (Windows)
+
 ```powershell
-py -3.11 -m venv .venv
-.venv\Scripts\activate
+cd agentes_ia
+py -m venv .venv
+.venv\\Scripts\\Activate.ps1
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-python main.py
-```
-Si Python 3.11 no está instalado, instala una versión compatible con TensorFlow antes de continuar. No se recomienda usar una versión de Python no soportada por TensorFlow.
-
-## Qué hace el programa
-1. Descarga MNIST con Keras: imágenes en escala de grises de 28×28 píxeles y etiquetas 0–9.
-2. Convierte los píxeles a valores entre 0 y 1.
-3. Entrena una CNN con el conjunto de entrenamiento y evalúa con el conjunto de prueba completo.
-4. Entrena KNN y SVM con un subconjunto reproducible para controlar el coste computacional.
-5. Guarda métricas, reportes por clase, matrices de confusión y modelos.
-
-## Archivos generados
-- `resultados/comparacion_modelos.csv`
-- `resultados/metricas_*.csv`
-- `resultados/reporte_*.txt`
-- `resultados/matriz_confusion_*.png`
-- `modelos/cnn_mnist.keras`
-- `modelos/knn_mnist.joblib`
-- `modelos/svm_mnist.joblib`
-
-Los resultados solo existirán después de ejecutar el programa. La comparación debe interpretarse teniendo en cuenta que CNN se evalúa con todo el test de MNIST y KNN/SVM con un subconjunto de test.
-
-## Modelos
-- CNN: red neuronal convolucional para aprender características visuales.
-- KNN: clasifica según vecinos más cercanos.
-- SVM: clasificador con kernel RBF y escalado de características.
-
-## Estructura
-```
-main.py
-requirements.txt
-docs/
-datos/
-resultados/
-modelos/       # se crea al ejecutar
+python pipeline.py
+python app.py
 ```
 
-## Limitaciones
-- El prototipo usa MNIST estándar, no datos privados de CONAUTI.
-- No es una integración de producción ni un sistema OCR para formularios completos.
-- Los hiperparámetros son una configuración inicial y pueden requerir ajuste.
-- La CNN entrena tres épocas por defecto; esto no garantiza rendimiento óptimo.
-- KNN/SVM usan subconjuntos por coste computacional; para una comparación rigurosa se recomienda evaluar todos los modelos sobre el mismo test, tras ajustar tiempos y recursos.
-- El caso de SENATI menciona también regresión y K-Means en la sección de evidencias; confirma con el docente si esos algoritmos son obligatorios.
+Luego abre `http://127.0.0.1:5000`.
 
-## Documentación
-- [Avance teórico](docs/avance_teorico.md)
-- [Preguntas guía](docs/preguntas_guia.md)
-- [Diagrama de solución](docs/diagrama_solucion.md)
+### Pruebas
+
+Desde la carpeta `agentes_ia`:
+
+```powershell
+python -m unittest -v
+```
+
+### Documentación del avance
+
+- [Documento teórico del Avance 2](docs/avance_2_agentes_ia.md)
+- [Guía técnica y comandos](agentes_ia/README.md)
+
+## Archivos del Avance 1
+
+Los archivos originales de reconocimiento de dígitos manuscritos (`main.py`, `requirements.txt` y documentos relacionados) se conservan en esta rama para no borrar el trabajo anterior. No forman parte del nuevo caso del Avance 2 ni son necesarios para ejecutar `agentes_ia/`.
